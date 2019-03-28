@@ -1,0 +1,204 @@
+\documentclass{article}
+
+\title{Corner Orbits of the Rubik's Cube}
+\author{Nathan Taylor and Nick Yonkee}
+\usepackage{graphicx, caption}
+\usepackage{wrapfig}
+\usepackage{gensymb}
+\usepackage{amssymb}
+\usepackage{amsmath}
+\begin{document}
+
+\maketitle
+
+\newpage
+
+
+
+\includegraphics{identity}
+\section{Introduction}
+
+The Rubik's Cube is a standard brain teaser designed to be scrambled into a (semi)random position and put back to the identity state as seen above. This is done with 6 basic types of rotation. However a nefarious prankster may have taken a screwdriver to the cube, removing all the corners and putting them back in a random way.
+
+
+\subsection{The Problem}
+
+We want to know if the cube is still solvable after the prankster has tampered with the cube, or if we must take off the corners and put them on correctly?
+
+\section{Notation}
+\subsection{Legal Moves}
+\newpage
+
+
+
+\begin{wrapfigure}{2.3}{0.25\textwidth}
+\captionsetup{width=2\linewidth}
+\includegraphics[width=2\linewidth]{R} 
+\caption{The Right move}
+\includegraphics[width=2\linewidth]{cornerlabel} 
+\caption{The Labels of each corner}
+\includegraphics[width=2\linewidth]{F} 
+\caption{The Front rotation, note that $c_1$ is 1 clockwise turn from it's desired position giving it a value of $\omega$ while $c_4$ is 2 turns giving a value of $\omega^2$}
+\label{fig:subim1}
+\end{wrapfigure}
+ There are 6 moves that can be made on a Rubik's Cube. The right rotation of $90\degree$ clockwise will be represented as $R$. All 6 clockwise rotations can be represented as their initials. Up:$U$, Down:$D$, Left:$L$, Right:$R$, Front:$F$, Back:$B$.  These 6 are the only legal moves when solving a cube.
+
+\vspace{25mm}
+
+\subsection{Corner labels}
+We labeled each corner in order to clearly refer to it later, the image to the right will apply to any scrambled cube, the top front will always be $c_1$. Note that each $c_n$ is a variable that will be filled in with an orientation value defined in the next subsection.
+\vspace{20mm}
+
+\subsection{Orientation}
+We needed to create a new notation for the orientation of each corner. For our purposes it will suffice to only consider the top and bottom faces (in our examples yellow and white). What's more, we do not need to differentiate between the two. For ease of understanding we call both faces $YW$. Orientation is based on how many clockwise turns the $YW$ face is from its correct location. (Note: These turns do not refer to legal rotations, but rather to single rotations of just the corner!) If the corner is in the correct orientation we give it a value of $1$, if it is clockwise once we give it the first cubic root of unity: $\omega$, and counterclockwise the second $\omega^2$.
+
+\newpage
+
+\subsection{Vector Representation}
+Now that we have everything labeled we can use these labels! All of this labeling was done with the purpose of putting it into a vector, this is the vector representation of any cube:
+\[ v=
+\begin{bmatrix}
+c_1 &
+c_2 &
+c_3 &
+c_4 &
+c_5 &
+c_6 &
+c_7 &
+c_8 &
+\end{bmatrix}
+\]
+
+
+\section{Vector Representation of the Legal Moves}
+The possible moves on the cube are ${U,D,L,R,F,B}$. The following are the functions each of the moves will have on a vector $v$. Note that by playing with a cube and following the notation above all of these functions are reproducible.\\ 
+All of the following functions have structure $F:v \rightarrow v$.
+
+\begin{align*}
+U(v)&=
+\begin{bmatrix}
+c_2 &
+c_3 &
+c_4 &
+c_1 &
+c_5 &
+c_6 &
+c_7 &
+c_8 &
+\end{bmatrix}\\
+D(v)&=
+\begin{bmatrix}
+c_1 &
+c_2 &
+c_3 &
+c_4 &
+c_6 &
+c_7 &
+c_8 &
+c_5 &
+\end{bmatrix}\\
+R(v)&=
+\begin{bmatrix}
+\omega^2  c_5 &
+\omega c_1 &
+c_3 &
+c_4 &
+\omega c_6 &
+\omega^2 c_2 &
+c_7 &
+c_8 &
+\end{bmatrix}\\
+L(v)&=
+\begin{bmatrix}
+c_1 &
+c_2 &
+\omega^2 c_4 &
+\omega c_8 &
+c_5 &
+c_6 &
+\omega c_3 &
+\omega^2 c_7 &
+\end{bmatrix}\\
+F(v)&=
+\begin{bmatrix}
+\omega c_4 &
+c_2 &
+c_3 &
+\omega^2 c_8 &
+\omega^2 c_1 &
+c_6 &
+c_7 &
+\omega c_5 &
+\end{bmatrix}\\
+B(v)&=
+\begin{bmatrix}
+c_1 &
+\omega^2 c_3 &
+\omega c_7&
+c_4 &
+c_5 &
+\omega c_2 &
+\omega^2 c_6&
+c_8 &
+\end{bmatrix}\\
+\end{align*}
+
+
+
+\section{The Equation}
+
+\begin{align*}
+y:v \rightarrow \mathbb{C}
+ \vspace{2mm}
+\end{align*}
+\begin{equation}
+\large
+y(v) = \prod_{c_i \in v} c_i
+\end{equation}
+
+
+\newpage
+\section{Proof}
+\subsection{Effect of Moves on the Equation}
+
+\begin{align*}
+y(v) &= &\prod_{c_i \in v} c_i \\
+y(U(v)) &= \prod_{c_i \in U(v)}c_i= &\prod_{c_i \in v} c_i\\
+y(D(v)) &= \prod_{c_i \in D(v)}c_i= &\prod_{c_i \in v} c_i\\
+y(R(v)) &= \prod_{c_i \in R(v)}c_i= &\omega^6 \prod_{c_i \in v} c_i = \prod_{c_i \in v} c_i\\
+y(L(v)) &= \prod_{c_i \in L(v)}c_i= &\omega^6 \prod_{c_i \in v} c_i =\prod_{c_i \in v} c_i\\
+y(F(v)) &= \prod_{c_i \in F(v)}c_i= &\omega^6 \prod_{c_i \in v} c_i =\prod_{c_i \in v} c_i\\
+y(B(v)) &= \prod_{c_i \in B(v)}c_i= &\omega^6 \prod_{c_i \in v} c_i =\prod_{c_i \in v} c_i\\
+\end{align*}
+\vspace{5mm}
+
+from this we can see that\\ 
+\begin{equation}
+y(v) = y(U(v)) =y(D(v)) =y(R(v)) =y(L(v)) =y(F(v)) =y(B(v))
+\end{equation}
+
+
+\subsection{Combinations of moves on the Equation}
+let $M_1$ and $M_2$ be any of the moves ${U,D,R,L,F,B}$
+
+\begin{align*}
+y(M_1(M_2(v))&= y(M_1(v')) &\text{where } v'=M_2(v)\\
+y(M_1(v')) &= y(v') &\text{by equation 2}\\
+y(v')&= y(M_2(v))\\
+y(M_2(v)) &= y(v) &\text{by equation 2}\\
+\end{align*}
+
+Because these are generic moves we can see that no possible combination of moves can change the value of $y(v)$
+
+\subsection{Conclusion}
+Based on the last section we can see that no legal moves can be made that will change the value of $y(v)$, therefore a cube with a value $y(v) \neq 1$ cannot become a cube with a value $y(v) =1$ via legal moves. Because the solved cube has a value $y(v)=1$, we can say that any cube with $y(v) \neq 1$ is not solvable with legal moves. 
+\section{Related Ideas we Found in Readings}
+\subsection{Orbits}
+
+We have seen three values for the function on the corners of the cube. The collection of all cubes with the same $y(v)$ value create what is called an orbit. You can go between any two cubes in the same orbit via a combination of legal moves. However you cannot go between different orbits via legal moves. The corners create an orbit with three possible values, there are two additional ways to crate a  new orbit each with two possible values. There are then more new orbits that can be created with combinations of the three. All together there are $2*2*3=12$ possible orbits.
+
+\includegraphics{orbits}
+
+Were we to apply the function $y$ that was introduced earlier, we would find that every orbit in the left column above has a value of $1$, the middle cubes a value of $\omega$, and the left cubes a value of $\omega^2$. This shows that our formula can in fact prove that the cube is solvable given the assumption that our prankster did not move any of the edge pieces. Given more time, we would like to find a similar formula that can identify a cube's edge orbits. If anybody is interested in extending the research in this area, this is where we would recommend starting.
+
+\end{document}
